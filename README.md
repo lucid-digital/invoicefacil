@@ -1,129 +1,109 @@
-# Invoice Generator
+# FacilInvoice - Simple Invoicing Solution
 
-A modern web application for generating professional PDF invoices and online payment links.
+A modern, easy-to-use invoicing application built with Next.js, Tailwind CSS, and Supabase.
 
 ## Features
 
-- Create and manage invoices with customizable fields
-- Generate professional PDF invoices
-- Create shareable payment links for online payments
-- Track payment status and send reminders
-- Responsive design for desktop and mobile
+- ✅ Create and manage invoices
+- ✅ Add and organize clients
+- ✅ Set up recurring invoices
+- ✅ Send professional invoice emails
+- ✅ Accept online payments with Stripe
+- ✅ Generate PDF invoices
+- ✅ Track payment status
+- ✅ Dark mode support
+- ✅ Responsive design for all devices
 
 ## Tech Stack
 
-- **Framework**: Next.js 14
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS with shadcn/ui components
-- **Database**: Supabase (PostgreSQL)
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS, Shadcn UI
+- **Backend**: Next.js API Routes, Supabase
+- **Database**: PostgreSQL (via Supabase)
+- **Authentication**: Custom auth with Supabase
+- **Email**: Resend
+- **Payments**: Stripe
 - **PDF Generation**: @react-pdf/renderer
-- **Date Handling**: date-fns
-- **Form Validation**: Zod
+- **Deployment**: Vercel
 
-## Getting Started
+## Deployment to Vercel
 
 ### Prerequisites
 
-- Node.js 18.0 or later
-- npm or yarn
-- Supabase account (free tier works fine)
+1. A Supabase account and project set up with the required database schema
+2. A Stripe account for payment processing
+3. A Resend account for email sending
+4. A Vercel account
 
-### Supabase Setup
+### Steps to Deploy
 
-1. Create a new Supabase project at [supabase.com](https://supabase.com)
-2. Go to the SQL Editor in your Supabase dashboard
-3. Run the SQL commands from `supabase-schema.sql` to set up your database tables
-4. Get your Supabase URL and anon key from the API settings page
+1. **Fork or Clone the Repository**
 
-### Environment Setup
+2. **Push Your Code to GitHub**
+   - Make sure your code is in a GitHub repository
 
-1. Copy the `.env.local` file and fill in your Supabase credentials:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
+3. **Set Up Environment Variables in Vercel**
+   - When connecting your repository to Vercel, you'll need to set the following environment variables:
+     - `NEXT_PUBLIC_SUPABASE_URL`
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+     - `SUPABASE_SERVICE_ROLE_KEY`
+     - `RESEND_API_KEY`
+     - `NEXT_PUBLIC_EMAIL_DOMAIN`
+     - `NEXT_PUBLIC_EMAIL_FROM_NAME`
+     - `NEXT_PUBLIC_APP_URL` (will be your Vercel deployment URL)
+     - `CRON_API_KEY`
+     - `STRIPE_SECRET_KEY`
+     - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 
-### Installation
+4. **Deploy on Vercel**
+   - Go to [Vercel](https://vercel.com)
+   - Click "Add New Project"
+   - Import your GitHub repository
+   - Configure build settings (should be auto-detected)
+   - Add environment variables from the list above
+   - Click "Deploy"
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/invoice-generator.git
-   cd invoice-generator
-   ```
+5. **Set Up Supabase RLS Policies**
+   - After deployment, visit your application URL
+   - The app should automatically set up RLS policies if needed
+   - Or follow the instructions in the app if prompted
 
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+6. **Set Up Stripe Webhook (Optional for Production)**
+   - In your Stripe Dashboard, set up a webhook pointing to:
+   - `https://your-domain.vercel.app/api/stripe/webhook`
+   - Events to listen for: `checkout.session.completed`
 
-3. Run the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+7. **Set Up a Cron Job for Recurring Invoices (Optional)**
+   - Set up a cron job to hit the endpoint:
+   - `https://your-domain.vercel.app/api/cron/generate-recurring-invoices`
+   - Recommended frequency: Daily
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+## Local Development
 
-## Project Structure
+### Getting Started
 
-- `/app` - Next.js app directory
-  - `/api` - API routes for data handling
-  - `/components` - Reusable UI components
-  - `/invoices` - Invoice-related pages
-    - `/[id]` - Individual invoice pages
-    - `/new` - Create new invoice page
-- `/lib` - Utility functions and database client
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up local environment variables in `.env.local` (see `.env.example`)
+4. Run the development server: `npm run dev`
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## API Endpoints
+### Database Setup
 
-- `GET /api/invoices` - Get all invoices
-- `POST /api/invoices` - Create a new invoice
-- `GET /api/invoices/[id]` - Get a specific invoice
-- `PUT /api/invoices/[id]` - Update a specific invoice
-- `DELETE /api/invoices/[id]` - Delete a specific invoice
+1. Create a Supabase project
+2. Run the database schema setup SQL (available in the project)
+3. Set up RLS policies or disable them for development
 
-## Deployment
+### Testing Payments
 
-This application can be easily deployed to Vercel:
-
-```bash
-npm run build
-# or
-yarn build
-```
+1. Use Stripe test mode for development
+2. Test cards: 
+   - Success: `4242 4242 4242 4242`
+   - Decline: `4000 0000 0000 0002`
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License.
 
-## Acknowledgments
+## Support
 
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first CSS framework
-- shadcn/ui for the beautiful component library
-- Supabase for the powerful backend services
-- React PDF for the PDF generation capabilities
-
-## Stripe Integration
-
-This application includes Stripe integration for processing invoice payments. To set up Stripe:
-
-1. Create a [Stripe account](https://stripe.com) if you don't have one
-2. Get your API keys from the Stripe Dashboard:
-   - Go to Developers > API keys
-   - Copy your "Secret key" and "Publishable key"
-3. Add these keys to your `.env.local` file:
-   ```
-   STRIPE_SECRET_KEY=your-stripe-secret-key
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your-stripe-publishable-key
-   ```
-4. For testing, you can use Stripe's test cards:
-   - Card number: `4242 4242 4242 4242`
-   - Expiration date: Any future date
-   - CVC: Any 3 digits
-   - ZIP: Any 5 digits
-
-When a client clicks the "Pay Now" button on an invoice, they'll be redirected to a Stripe Checkout page where they can securely enter their payment information. After successful payment, the invoice will be automatically marked as paid.
+For support or questions, please open an issue in the GitHub repository.
