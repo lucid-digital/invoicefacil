@@ -43,7 +43,7 @@ export async function sendEmail(options: EmailOptions) {
       subject,
       html,
       text,
-      reply_to: replyTo,
+      replyTo: replyTo,
       cc,
       bcc,
     });
@@ -230,4 +230,4 @@ export async function sendRecurringInvoiceEmail(email: string, data: InvoiceEmai
     html,
     text,
   });
-} 
+}

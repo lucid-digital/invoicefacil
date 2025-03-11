@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getInvoiceById, getInvoiceLineItems } from '@/lib/supabase';
-import { renderToBuffer } from '@react-pdf/renderer';
-import InvoicePDF from '@/app/components/InvoicePDF';
+import { generatePDFBuffer } from '@/app/components/ServerPDFGenerator';
 
 // GET /api/public/invoices/[id]/pdf - Get a PDF for a specific invoice (public access)
 export async function GET(
@@ -40,7 +39,7 @@ export async function GET(
     
     console.log(`Found ${lineItems.length} line items for invoice ${id}`);
     
-    // Format invoice data for PDF component
+    // Format invoice data for PDF generation
     const pdfData = {
       invoiceNumber: invoice.invoice_number,
       issueDate: invoice.issue_date,
@@ -58,9 +57,9 @@ export async function GET(
     };
     
     try {
-      // Generate PDF
+      // Generate PDF using the server-compatible generator
       console.log('Rendering PDF...');
-      const pdfBuffer = await renderToBuffer(<InvoicePDF data={pdfData} />);
+      const pdfBuffer = await generatePDFBuffer(pdfData);
       
       console.log('PDF generated successfully');
       

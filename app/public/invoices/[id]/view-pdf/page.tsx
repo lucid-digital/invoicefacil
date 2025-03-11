@@ -124,6 +124,11 @@ export default function InvoicePDFViewerPage() {
     notes: invoice.notes || ''
   };
 
+  // Only render PDFViewer on the client side
+  if (typeof window === 'undefined') {
+    return <div>Loading PDF viewer...</div>;
+  }
+
   return (
     <div className="min-h-screen bg-background p-4">
       <PDFViewer style={{ width: '100%', height: 'calc(100vh - 2rem)' }}>

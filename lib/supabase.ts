@@ -540,4 +540,58 @@ export async function getInvoiceLineItems(invoiceId: string): Promise<LineItem[]
     console.error(`Error in getInvoiceLineItems for invoice ${invoiceId}:`, error);
     return null;
   }
+}
+
+// Add a new function to add a line item
+export async function addLineItem(itemData: Partial<LineItem>, userId: string): Promise<LineItem | null> {
+  try {
+    const { data, error } = await supabase
+      .from('line_items')
+      .insert({
+        ...itemData,
+        user_id: userId
+      })
+      .select()
+      .single();
+    
+    if (error) {
+      console.error('Error adding line item:', error);
+      return null;
+    }
+    
+    return data as LineItem;
+  } catch (error) {
+    console.error('Error in addLineItem:', error);
+    return null;
+  }
+}
+
+// Properly implement createInvoice to handle both invoice data and line items
+export async function createInvoice(
+  invoiceData: Partial<Invoice>, 
+  lineItems: Partial<LineItem>[]
+): Promise<Invoice | null> {
+  try {
+    // Add the invoice first
+    const invoice = await addInvoice(invoiceData, invoiceData.user_id as string);
+    
+    if (!invoice) {
+      console.error('Failed to create invoice');
+      return null;
+    }
+    
+    // Now add all the line items for this invoice
+    for (const item of lineItems) {
+      await addLineItem({
+        ...item,
+        invoice_id: invoice.id
+      }, invoice.user_id);
+    }
+    
+    // Return the created invoice
+    return invoice;
+  } catch (error) {
+    console.error('Error in createInvoice:', error);
+    return null;
+  }
 } 

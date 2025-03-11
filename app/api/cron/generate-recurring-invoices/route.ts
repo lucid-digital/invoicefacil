@@ -43,24 +43,27 @@ export async function GET(request: Request) {
         }
         
         // Create a new invoice based on the recurring invoice template
-        const invoice = await createInvoice({
-          client_id: fullInvoice.client_id,
-          recurring_invoice_id: recurringInvoice.id,
-          invoice_number: `${fullInvoice.invoice_number_prefix}${Date.now().toString().substring(7)}`,
-          client_name: fullInvoice.client_name,
-          client_email: fullInvoice.client_email,
-          issue_date: new Date().toISOString().split('T')[0],
-          due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-          status: 'draft',
-          notes: `Generated from recurring invoice. ${fullInvoice.notes || ''}`,
-          user_id: fullInvoice.user_id,
-          total: fullInvoice.total,
-        }, fullInvoice.lineItems.map(item => ({
-          description: item.description,
-          quantity: item.quantity,
-          rate: item.rate,
-          amount: item.amount
-        })));
+        const invoice = await createInvoice(
+          {
+            client_id: fullInvoice.client_id,
+            recurring_invoice_id: recurringInvoice.id,
+            invoice_number: `${fullInvoice.invoice_number_prefix}${Date.now().toString().substring(7)}`,
+            client_name: fullInvoice.client_name,
+            client_email: fullInvoice.client_email,
+            issue_date: new Date().toISOString().split('T')[0],
+            due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+            status: 'draft',
+            notes: `Generated from recurring invoice. ${fullInvoice.notes || ''}`,
+            user_id: fullInvoice.user_id,
+            total: fullInvoice.total,
+          }, 
+          fullInvoice.lineItems.map(item => ({
+            description: item.description,
+            quantity: item.quantity,
+            rate: item.rate,
+            amount: item.amount
+          }))
+        );
         
         if (!invoice) {
           results.push({
