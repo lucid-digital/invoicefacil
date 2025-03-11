@@ -1,100 +1,245 @@
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { CheckCircle2, CreditCard, FileText, BarChart3, Clock, Users, Shield } from 'lucide-react';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="py-20 md:py-28">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                Simple Invoicing for Modern Businesses
+              </h1>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                Create professional invoices, get paid faster, and manage your business finances with ease.
+              </p>
+            </div>
+            <div className="space-x-4">
+              <Button asChild size="lg" className="h-11 px-8">
+                <Link href="/register">Get Started</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="h-11 px-8">
+                <Link href="/login">Sign In</Link>
+              </Button>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Feature Highlights */}
+      <section className="py-12 md:py-16 bg-muted/50">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+                Everything You Need
+              </h2>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+                Powerful features to streamline your invoicing workflow
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            <Card className="bg-background">
+              <CardHeader className="pb-2">
+                <FileText className="h-12 w-12 text-primary mb-2" />
+                <CardTitle>Professional Invoices</CardTitle>
+                <CardDescription>
+                  Create beautiful, customizable invoices in seconds
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Customizable templates</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Add your logo and branding</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>PDF generation</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background">
+              <CardHeader className="pb-2">
+                <CreditCard className="h-12 w-12 text-primary mb-2" />
+                <CardTitle>Online Payments</CardTitle>
+                <CardDescription>
+                  Get paid faster with integrated payment links
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Stripe integration</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Shareable payment links</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Automatic payment tracking</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background">
+              <CardHeader className="pb-2">
+                <Clock className="h-12 w-12 text-primary mb-2" />
+                <CardTitle>Recurring Invoices</CardTitle>
+                <CardDescription>
+                  Automate your billing with recurring invoices
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Weekly, monthly, or custom schedules</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Automatic generation</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Email notifications</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background">
+              <CardHeader className="pb-2">
+                <Users className="h-12 w-12 text-primary mb-2" />
+                <CardTitle>Client Management</CardTitle>
+                <CardDescription>
+                  Organize your clients and their information
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Client database</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Contact information</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Invoice history</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background">
+              <CardHeader className="pb-2">
+                <BarChart3 className="h-12 w-12 text-primary mb-2" />
+                <CardTitle>Dashboard & Analytics</CardTitle>
+                <CardDescription>
+                  Track your business performance at a glance
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Financial overview</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Payment status tracking</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Revenue insights</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background">
+              <CardHeader className="pb-2">
+                <Shield className="h-12 w-12 text-primary mb-2" />
+                <CardTitle>Secure & Private</CardTitle>
+                <CardDescription>
+                  Your data is protected and private
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Data encryption</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>User authentication</span>
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
+                    <span>Privacy controls</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+                Ready to Streamline Your Invoicing?
+              </h2>
+              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg">
+                Join thousands of businesses that use our platform to simplify their invoicing process.
+              </p>
+            </div>
+            <div className="w-full max-w-sm space-y-2">
+              <Button asChild className="w-full" size="lg">
+                <Link href="/register">Get Started for Free</Link>
+              </Button>
+              <p className="text-xs text-muted-foreground">
+                No credit card required. Start creating invoices in minutes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t py-6 md:py-0">
+        <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            © {new Date().getFullYear()} Invoice Generator. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <Link href="#" className="hover:underline">Terms</Link>
+            <Link href="#" className="hover:underline">Privacy</Link>
+            <Link href="#" className="hover:underline">Contact</Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
