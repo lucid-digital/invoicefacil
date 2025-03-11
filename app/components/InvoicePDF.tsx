@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-import { format } from 'date-fns';
 
 // Define types for our invoice data
 interface LineItem {
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
 });
 
 // Create PDF Document component
-const InvoicePDF: React.FC<{ data: InvoiceData }> = ({ data }) => {
+const InvoicePDF = ({ data }: { data: InvoiceData }) => {
   // Ensure data is valid and has default values
   const safeData = {
     invoiceNumber: data?.invoiceNumber || 'N/A',
@@ -163,7 +162,13 @@ const InvoicePDF: React.FC<{ data: InvoiceData }> = ({ data }) => {
 
   const formatDate = (dateString: string) => {
     try {
-      return format(new Date(dateString), 'MMMM dd, yyyy');
+      // Simple date formatting to avoid date-fns dependency issues
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
     } catch (error) {
       console.error('Error formatting date:', error);
       return dateString;

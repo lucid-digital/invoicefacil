@@ -3,9 +3,22 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { PDFViewer } from '@react-pdf/renderer';
-import InvoicePDF from '@/app/components/InvoicePDF';
+import dynamic from 'next/dynamic';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
+
+// Dynamically import the InvoicePDF component with no SSR
+const InvoicePDF = dynamic(() => import('@/app/components/InvoicePDF'), { 
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-[calc(100vh-2rem)]">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+        <p className="text-muted-foreground">Loading PDF viewer...</p>
+      </div>
+    </div>
+  )
+});
 
 interface LineItem {
   id: string;
