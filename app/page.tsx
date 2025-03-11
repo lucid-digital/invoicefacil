@@ -170,7 +170,7 @@ export default function HomePage() {
                   <li className="flex items-center">
                     <CheckCircle2 className="h-4 w-4 text-primary mr-2" />
                     <span>Revenue insights</span>
-                  </li>
+          </li>
                 </ul>
               </CardContent>
             </Card>
